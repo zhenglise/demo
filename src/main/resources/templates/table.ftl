@@ -92,7 +92,6 @@
 				type: "post",
 				data: {
 					username: username,
-					sex: sex,
 					selectSex: selectSex,
 					selectDepartment: selectDepartment,
 					entryTime01: entryTime01,

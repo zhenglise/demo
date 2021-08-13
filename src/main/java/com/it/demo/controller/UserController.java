@@ -128,7 +128,7 @@ public class UserController {
             User user = new User();
             user.setUserName(null == username ? "" : username.trim());
             user.setSex(null == selectSex ? "" : selectSex.trim());
-            user.setSex(null == selectDepartment ? "" : selectDepartment.trim());
+            user.setDepartment(null == selectDepartment ? "" : selectDepartment.trim());
             user.setEntryTime01(null == entryTime01 ? "" : entryTime01.trim());
             user.setEntryTime02(null == entryTime02 ? "" : entryTime02.trim());
             user.setEntryBeforeYears01(null == entryBeforeYears01 ? "" : entryBeforeYears01.trim());
@@ -158,6 +158,7 @@ public class UserController {
 
             try {
 
+                // 异步查询形式，通过输出返回到页面
                 response.setCharacterEncoding("utf-8");//响应字符集的编码格式
                 response.getWriter().print(array);
 

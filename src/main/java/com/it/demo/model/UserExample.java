@@ -2,10 +2,10 @@ package com.it.demo.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserExample {
-
     protected String orderByClause;
 
     protected boolean distinct;
@@ -316,62 +316,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeEqualTo(String value) {
+        public Criteria andEntryTimeEqualTo(Date value) {
             addCriterion("entry_time =", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeNotEqualTo(String value) {
+        public Criteria andEntryTimeNotEqualTo(Date value) {
             addCriterion("entry_time <>", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeGreaterThan(String value) {
+        public Criteria andEntryTimeGreaterThan(Date value) {
             addCriterion("entry_time >", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andEntryTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("entry_time >=", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeLessThan(String value) {
+        public Criteria andEntryTimeLessThan(Date value) {
             addCriterion("entry_time <", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeLessThanOrEqualTo(String value) {
+        public Criteria andEntryTimeLessThanOrEqualTo(Date value) {
             addCriterion("entry_time <=", value, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeLike(String value) {
-            addCriterion("entry_time like", value, "entryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEntryTimeNotLike(String value) {
-            addCriterion("entry_time not like", value, "entryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEntryTimeIn(List<String> values) {
+        public Criteria andEntryTimeIn(List<Date> values) {
             addCriterion("entry_time in", values, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeNotIn(List<String> values) {
+        public Criteria andEntryTimeNotIn(List<Date> values) {
             addCriterion("entry_time not in", values, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeBetween(String value1, String value2) {
+        public Criteria andEntryTimeBetween(Date value1, Date value2) {
             addCriterion("entry_time between", value1, value2, "entryTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntryTimeNotBetween(String value1, String value2) {
+        public Criteria andEntryTimeNotBetween(Date value1, Date value2) {
             addCriterion("entry_time not between", value1, value2, "entryTime");
             return (Criteria) this;
         }
@@ -1126,62 +1116,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeEqualTo(String value) {
+        public Criteria andGraduationTimeEqualTo(Date value) {
             addCriterion("graduation_time =", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeNotEqualTo(String value) {
+        public Criteria andGraduationTimeNotEqualTo(Date value) {
             addCriterion("graduation_time <>", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeGreaterThan(String value) {
+        public Criteria andGraduationTimeGreaterThan(Date value) {
             addCriterion("graduation_time >", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andGraduationTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("graduation_time >=", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeLessThan(String value) {
+        public Criteria andGraduationTimeLessThan(Date value) {
             addCriterion("graduation_time <", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeLessThanOrEqualTo(String value) {
+        public Criteria andGraduationTimeLessThanOrEqualTo(Date value) {
             addCriterion("graduation_time <=", value, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeLike(String value) {
-            addCriterion("graduation_time like", value, "graduationTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGraduationTimeNotLike(String value) {
-            addCriterion("graduation_time not like", value, "graduationTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGraduationTimeIn(List<String> values) {
+        public Criteria andGraduationTimeIn(List<Date> values) {
             addCriterion("graduation_time in", values, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeNotIn(List<String> values) {
+        public Criteria andGraduationTimeNotIn(List<Date> values) {
             addCriterion("graduation_time not in", values, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeBetween(String value1, String value2) {
+        public Criteria andGraduationTimeBetween(Date value1, Date value2) {
             addCriterion("graduation_time between", value1, value2, "graduationTime");
             return (Criteria) this;
         }
 
-        public Criteria andGraduationTimeNotBetween(String value1, String value2) {
+        public Criteria andGraduationTimeNotBetween(Date value1, Date value2) {
             addCriterion("graduation_time not between", value1, value2, "graduationTime");
             return (Criteria) this;
         }
@@ -1313,6 +1293,66 @@ public class UserExample {
 
         public Criteria andEntryRemarksNotBetween(String value1, String value2) {
             addCriterion("entry_remarks not between", value1, value2, "entryRemarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsIsNull() {
+            addCriterion("current_years is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsIsNotNull() {
+            addCriterion("current_years is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsEqualTo(BigDecimal value) {
+            addCriterion("current_years =", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsNotEqualTo(BigDecimal value) {
+            addCriterion("current_years <>", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsGreaterThan(BigDecimal value) {
+            addCriterion("current_years >", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("current_years >=", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsLessThan(BigDecimal value) {
+            addCriterion("current_years <", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("current_years <=", value, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsIn(List<BigDecimal> values) {
+            addCriterion("current_years in", values, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsNotIn(List<BigDecimal> values) {
+            addCriterion("current_years not in", values, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("current_years between", value1, value2, "currentYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearsNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("current_years not between", value1, value2, "currentYears");
             return (Criteria) this;
         }
 

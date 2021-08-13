@@ -2,8 +2,10 @@ package com.it.demo.dao;
 
 import com.it.demo.model.ErpRecord;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface ErpRecordMapper {
 
     int deleteByPrimaryKey(Integer erpId);

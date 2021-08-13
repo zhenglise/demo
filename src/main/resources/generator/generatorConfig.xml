@@ -62,7 +62,7 @@
         </javaClientGenerator>
 
         <!-- 数据表名及实体类名称  -->
-        <table tableName="user_data" domainObjectName="User"
+        <table tableName="user_data1" domainObjectName="User"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
             <generatedKey column="user_id" sqlStatement="mysql" identity="true"/>

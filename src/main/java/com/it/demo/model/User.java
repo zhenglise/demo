@@ -1,9 +1,8 @@
 package com.it.demo.model;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class User implements Serializable {
     private Integer userId;
@@ -12,7 +11,7 @@ public class User implements Serializable {
 
     private String sex;
 
-    private String entryTime;
+    private Date entryTime;
 
     private String entryGrade;
 
@@ -36,11 +35,13 @@ public class User implements Serializable {
 
     private String education;
 
-    private String graduationTime;
+    private Date graduationTime;
 
     private BigDecimal entryBeforeYears;
 
     private String entryRemarks;
+
+    private BigDecimal currentYears;
 
     private String whetherExtrapolation;
 
@@ -49,8 +50,6 @@ public class User implements Serializable {
     private String recruitContributionTwo;
 
     private String isJob;
-
-
 
     private String entryTime01;
     private String entryTime02;
@@ -85,12 +84,12 @@ public class User implements Serializable {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public String getEntryTime() {
+    public Date getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(String entryTime) {
-        this.entryTime = entryTime == null ? null : entryTime.trim();
+    public void setEntryTime(Date entryTime) {
+        this.entryTime = entryTime;
     }
 
     public String getEntryGrade() {
@@ -181,12 +180,12 @@ public class User implements Serializable {
         this.education = education == null ? null : education.trim();
     }
 
-    public String getGraduationTime() {
+    public Date getGraduationTime() {
         return graduationTime;
     }
 
-    public void setGraduationTime(String graduationTime) {
-        this.graduationTime = graduationTime == null ? null : graduationTime.trim();
+    public void setGraduationTime(Date graduationTime) {
+        this.graduationTime = graduationTime;
     }
 
     public BigDecimal getEntryBeforeYears() {
@@ -203,6 +202,14 @@ public class User implements Serializable {
 
     public void setEntryRemarks(String entryRemarks) {
         this.entryRemarks = entryRemarks == null ? null : entryRemarks.trim();
+    }
+
+    public BigDecimal getCurrentYears() {
+        return currentYears;
+    }
+
+    public void setCurrentYears(BigDecimal currentYears) {
+        this.currentYears = currentYears;
     }
 
     public String getWhetherExtrapolation() {
@@ -235,14 +242,6 @@ public class User implements Serializable {
 
     public void setIsJob(String isJob) {
         this.isJob = isJob == null ? null : isJob.trim();
-    }
-
-    public String getEntryBeforeYearsAll02() {
-        return entryBeforeYearsAll02;
-    }
-
-    public void setEntryBeforeYearsAll02(String entryBeforeYearsAll02) {
-        this.entryBeforeYearsAll02 = entryBeforeYearsAll02;
     }
 
     public String getEntryTime01() {
@@ -283,5 +282,13 @@ public class User implements Serializable {
 
     public void setEntryBeforeYearsAll01(String entryBeforeYearsAll01) {
         this.entryBeforeYearsAll01 = entryBeforeYearsAll01;
+    }
+
+    public String getEntryBeforeYearsAll02() {
+        return entryBeforeYearsAll02;
+    }
+
+    public void setEntryBeforeYearsAll02(String entryBeforeYearsAll02) {
+        this.entryBeforeYearsAll02 = entryBeforeYearsAll02;
     }
 }
