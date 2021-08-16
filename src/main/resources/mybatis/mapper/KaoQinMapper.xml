@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.it.demo.dao.KaoQinMapper" >
+  <resultMap id="BaseResultMap" type="com.it.demo.model.KaoQin" >
+    <id column="kao_qin_id" property="kaoQinId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="psot" property="psot" jdbcType="VARCHAR" />
+    <result column="answer_attendance_date" property="answerAttendanceDate" jdbcType="INTEGER" />
+    <result column="attendance_date" property="attendanceDate" jdbcType="INTEGER" />
+    <result column="seven_before" property="sevenBefore" jdbcType="INTEGER" />
+    <result column="seven_after" property="sevenAfter" jdbcType="INTEGER" />
+    <result column="eight_after" property="eightAfter" jdbcType="INTEGER" />
+    <result column="nine_after" property="nineAfter" jdbcType="INTEGER" />
+    <result column="ten_after" property="tenAfter" jdbcType="INTEGER" />
+    <result column="twelve_after" property="twelveAfter" jdbcType="INTEGER" />
+    <result column="nine_twelve_after" property="nineTwelveAfter" jdbcType="INTEGER" />
+    <result column="work_overtime" property="workOvertime" jdbcType="VARCHAR" />
+    <result column="is_work" property="isWork" jdbcType="VARCHAR" />
+    <result column="kao_qin_month" property="kaoQinMonth" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    kao_qin_id, user_id, user_name, department, psot, answer_attendance_date, attendance_date, 
+    seven_before, seven_after, eight_after, nine_after, ten_after, twelve_after, nine_twelve_after, 
+    work_overtime, is_work, kao_qin_month
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.it.demo.model.KaoQinExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kao_qin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from kao_qin
+    where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from kao_qin
+    where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.demo.model.KaoQinExample" >
+    delete from kao_qin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.demo.model.KaoQin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kao_qin (kao_qin_id, user_name, department, 
+      psot, answer_attendance_date, attendance_date, 
+      seven_before, seven_after, eight_after, 
+      nine_after, ten_after, twelve_after, 
+      nine_twelve_after, work_overtime, is_work, 
+      kao_qin_month)
+    values (#{kaoQinId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{psot,jdbcType=VARCHAR}, #{answerAttendanceDate,jdbcType=INTEGER}, #{attendanceDate,jdbcType=INTEGER}, 
+      #{sevenBefore,jdbcType=INTEGER}, #{sevenAfter,jdbcType=INTEGER}, #{eightAfter,jdbcType=INTEGER}, 
+      #{nineAfter,jdbcType=INTEGER}, #{tenAfter,jdbcType=INTEGER}, #{twelveAfter,jdbcType=INTEGER}, 
+      #{nineTwelveAfter,jdbcType=INTEGER}, #{workOvertime,jdbcType=VARCHAR}, #{isWork,jdbcType=VARCHAR}, 
+      #{kaoQinMonth,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.demo.model.KaoQin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kao_qin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kaoQinId != null" >
+        kao_qin_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="psot != null" >
+        psot,
+      </if>
+      <if test="answerAttendanceDate != null" >
+        answer_attendance_date,
+      </if>
+      <if test="attendanceDate != null" >
+        attendance_date,
+      </if>
+      <if test="sevenBefore != null" >
+        seven_before,
+      </if>
+      <if test="sevenAfter != null" >
+        seven_after,
+      </if>
+      <if test="eightAfter != null" >
+        eight_after,
+      </if>
+      <if test="nineAfter != null" >
+        nine_after,
+      </if>
+      <if test="tenAfter != null" >
+        ten_after,
+      </if>
+      <if test="twelveAfter != null" >
+        twelve_after,
+      </if>
+      <if test="nineTwelveAfter != null" >
+        nine_twelve_after,
+      </if>
+      <if test="workOvertime != null" >
+        work_overtime,
+      </if>
+      <if test="isWork != null" >
+        is_work,
+      </if>
+      <if test="kaoQinMonth != null" >
+        kao_qin_month,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kaoQinId != null" >
+        #{kaoQinId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="psot != null" >
+        #{psot,jdbcType=VARCHAR},
+      </if>
+      <if test="answerAttendanceDate != null" >
+        #{answerAttendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceDate != null" >
+        #{attendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="sevenBefore != null" >
+        #{sevenBefore,jdbcType=INTEGER},
+      </if>
+      <if test="sevenAfter != null" >
+        #{sevenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="eightAfter != null" >
+        #{eightAfter,jdbcType=INTEGER},
+      </if>
+      <if test="nineAfter != null" >
+        #{nineAfter,jdbcType=INTEGER},
+      </if>
+      <if test="tenAfter != null" >
+        #{tenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="twelveAfter != null" >
+        #{twelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="nineTwelveAfter != null" >
+        #{nineTwelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="workOvertime != null" >
+        #{workOvertime,jdbcType=VARCHAR},
+      </if>
+      <if test="isWork != null" >
+        #{isWork,jdbcType=VARCHAR},
+      </if>
+      <if test="kaoQinMonth != null" >
+        #{kaoQinMonth,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.demo.model.KaoQinExample" resultType="java.lang.Integer" >
+    select count(*) from kao_qin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update kao_qin
+    <set >
+      <if test="record.kaoQinId != null" >
+        kao_qin_id = #{record.kaoQinId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psot != null" >
+        psot = #{record.psot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerAttendanceDate != null" >
+        answer_attendance_date = #{record.answerAttendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.attendanceDate != null" >
+        attendance_date = #{record.attendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.sevenBefore != null" >
+        seven_before = #{record.sevenBefore,jdbcType=INTEGER},
+      </if>
+      <if test="record.sevenAfter != null" >
+        seven_after = #{record.sevenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.eightAfter != null" >
+        eight_after = #{record.eightAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.nineAfter != null" >
+        nine_after = #{record.nineAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenAfter != null" >
+        ten_after = #{record.tenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.twelveAfter != null" >
+        twelve_after = #{record.twelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.nineTwelveAfter != null" >
+        nine_twelve_after = #{record.nineTwelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="record.workOvertime != null" >
+        work_overtime = #{record.workOvertime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isWork != null" >
+        is_work = #{record.isWork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kaoQinMonth != null" >
+        kao_qin_month = #{record.kaoQinMonth,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update kao_qin
+    set kao_qin_id = #{record.kaoQinId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      psot = #{record.psot,jdbcType=VARCHAR},
+      answer_attendance_date = #{record.answerAttendanceDate,jdbcType=INTEGER},
+      attendance_date = #{record.attendanceDate,jdbcType=INTEGER},
+      seven_before = #{record.sevenBefore,jdbcType=INTEGER},
+      seven_after = #{record.sevenAfter,jdbcType=INTEGER},
+      eight_after = #{record.eightAfter,jdbcType=INTEGER},
+      nine_after = #{record.nineAfter,jdbcType=INTEGER},
+      ten_after = #{record.tenAfter,jdbcType=INTEGER},
+      twelve_after = #{record.twelveAfter,jdbcType=INTEGER},
+      nine_twelve_after = #{record.nineTwelveAfter,jdbcType=INTEGER},
+      work_overtime = #{record.workOvertime,jdbcType=VARCHAR},
+      is_work = #{record.isWork,jdbcType=VARCHAR},
+      kao_qin_month = #{record.kaoQinMonth,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.demo.model.KaoQin" >
+    update kao_qin
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="psot != null" >
+        psot = #{psot,jdbcType=VARCHAR},
+      </if>
+      <if test="answerAttendanceDate != null" >
+        answer_attendance_date = #{answerAttendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceDate != null" >
+        attendance_date = #{attendanceDate,jdbcType=INTEGER},
+      </if>
+      <if test="sevenBefore != null" >
+        seven_before = #{sevenBefore,jdbcType=INTEGER},
+      </if>
+      <if test="sevenAfter != null" >
+        seven_after = #{sevenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="eightAfter != null" >
+        eight_after = #{eightAfter,jdbcType=INTEGER},
+      </if>
+      <if test="nineAfter != null" >
+        nine_after = #{nineAfter,jdbcType=INTEGER},
+      </if>
+      <if test="tenAfter != null" >
+        ten_after = #{tenAfter,jdbcType=INTEGER},
+      </if>
+      <if test="twelveAfter != null" >
+        twelve_after = #{twelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="nineTwelveAfter != null" >
+        nine_twelve_after = #{nineTwelveAfter,jdbcType=INTEGER},
+      </if>
+      <if test="workOvertime != null" >
+        work_overtime = #{workOvertime,jdbcType=VARCHAR},
+      </if>
+      <if test="isWork != null" >
+        is_work = #{isWork,jdbcType=VARCHAR},
+      </if>
+      <if test="kaoQinMonth != null" >
+        kao_qin_month = #{kaoQinMonth,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.demo.model.KaoQin" >
+    update kao_qin
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      psot = #{psot,jdbcType=VARCHAR},
+      answer_attendance_date = #{answerAttendanceDate,jdbcType=INTEGER},
+      attendance_date = #{attendanceDate,jdbcType=INTEGER},
+      seven_before = #{sevenBefore,jdbcType=INTEGER},
+      seven_after = #{sevenAfter,jdbcType=INTEGER},
+      eight_after = #{eightAfter,jdbcType=INTEGER},
+      nine_after = #{nineAfter,jdbcType=INTEGER},
+      ten_after = #{tenAfter,jdbcType=INTEGER},
+      twelve_after = #{twelveAfter,jdbcType=INTEGER},
+      nine_twelve_after = #{nineTwelveAfter,jdbcType=INTEGER},
+      work_overtime = #{workOvertime,jdbcType=VARCHAR},
+      is_work = #{isWork,jdbcType=VARCHAR},
+      kao_qin_month = #{kaoQinMonth,jdbcType=TIMESTAMP}
+    where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -127,19 +127,20 @@
 	<!-- topbar ends -->
 		<div class="container-fluid">
 		<div class="row-fluid">
-				
+
 			<!-- left menu starts -->
 			<div class="span2 main-menu-span">
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Main</li>
-						<li><a class="ajax-link" onclick='clickMenu("showTable")'><i class="icon-align-justify"></i><span class="hidden-tablet"> 列表数据</span></a></li>
+						<li><a class="ajax-link" onclick='clickMenu("showTable")'><i class="icon-home"></i><span class="hidden-tablet"> 员工列表</span></a></li>
+						<li><a class="ajax-link" onclick='clickMenu("showJiXiao")'><i class="icon-list-alt"></i><span class="hidden-tablet"> 绩效列表</span></a></li>
+						<li><a class="ajax-link" onclick='clickMenu("showKaoQin")'><i class="icon-align-justify"></i><span class="hidden-tablet"> 考勤列表</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showTypography")'><i class="icon-font"></i><span class="hidden-tablet"> 个人详情</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showCalendar")'><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showIcon")'><i class="icon-star"></i><span class="hidden-tablet"> 图标展示</span></a></li>
 						<li><a onclick='clickMenu("showlogin")'><i class="icon-lock"></i><span class="hidden-tablet"> 退出登陆</span></a></li>
 					</ul>
-					<#--<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>-->
 				</div><!--/.well -->
 			</div><!--/span-->
 			<!-- left menu ends -->

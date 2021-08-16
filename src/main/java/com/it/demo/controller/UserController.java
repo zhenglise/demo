@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class UserController {
         session.setAttribute("moneyQX",null);
 
         mav.addObject("message", " @_@ ");
-        mav.setViewName("login");
+        mav.setViewName("index");
 
         return mav;
     }
@@ -78,6 +79,7 @@ public class UserController {
 
         return mav;
     }
+
 
     @RequestMapping(value = "/selectUserTable" ,method = RequestMethod.POST)
     public ModelAndView selectUserTable(@RequestParam("username") String username ,
@@ -117,6 +119,7 @@ public class UserController {
                                @RequestParam("entryBeforeYears02")String entryBeforeYears02 ,
                                @RequestParam("entryBeforeYearsAll01")String entryBeforeYearsAll01 ,
                                @RequestParam("entryBeforeYearsAll02")String entryBeforeYearsAll02 ,
+                               @RequestParam("paixu")String paixu ,
                                HttpServletRequest request, HttpServletResponse response){
 
         ModelAndView mav = new ModelAndView();
@@ -135,6 +138,7 @@ public class UserController {
             user.setEntryBeforeYears02(null == entryBeforeYears02 ? "" : entryBeforeYears02.trim());
             user.setEntryBeforeYearsAll01(null == entryBeforeYearsAll01 ? "" : entryBeforeYearsAll01.trim());
             user.setEntryBeforeYearsAll02(null == entryBeforeYearsAll02 ? "" : entryBeforeYearsAll02.trim());
+            user.setPaixu(paixu);
 
             List<User> userList = userService.selectUserListByAll(user);
 
@@ -142,9 +146,12 @@ public class UserController {
             HttpSession session = request.getSession();
             String moneyQX = null == session.getAttribute("moneyQX") ? "" : session.getAttribute("moneyQX").toString();
 
-            if(!"Y".equals(moneyQX)){
+            // 转换日期字符串
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                for (int i = 0; i < userList.size(); i++){
+            for (int i = 0; i < userList.size(); i++){
+
+                if(!"Y".equals(moneyQX)){
 
                     BigDecimal bigDecimal =new BigDecimal(0);
 
@@ -152,6 +159,9 @@ public class UserController {
                     userList.get(i).setEntrySalary(bigDecimal);
                     userList.get(i).setOntrialSalary(bigDecimal);
                 }
+
+                // 格式化入职时间
+                userList.get(i).setEntryTime01(sdf.format(userList.get(i).getEntryTime()));
             }
 
             JSONArray array = JSONArray.fromObject(userList);
@@ -195,12 +205,12 @@ public class UserController {
     }
 
     /**
-     * 处理登陆情况判断，可以用spring的AOP实现
+     * 处理登陆情况判断，可以用spring的AOP实现   静态方法，可以提供给其他类使用
      * @param mav
      * @param request
      * @return
      */
-    public String loginFilter(ModelAndView mav,HttpServletRequest request){
+    public static String loginFilter(ModelAndView mav,HttpServletRequest request){
 
         // 默认失败状态
         HttpSession session = request.getSession();

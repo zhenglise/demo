@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.it.demo.dao.KaoQinDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.it.demo.model.KaoQinDetails" >
+    <id column="kao_qin_details_id" property="kaoQinDetailsId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="kaoqin_date" property="kaoqinDate" jdbcType="VARCHAR" />
+    <result column="zao_time" property="zaoTime" jdbcType="VARCHAR" />
+    <result column="zao_start" property="zaoStart" jdbcType="VARCHAR" />
+    <result column="wan_time" property="wanTime" jdbcType="VARCHAR" />
+    <result column="wan_start" property="wanStart" jdbcType="VARCHAR" />
+    <result column="riqi_date" property="riqiDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    kao_qin_details_id, user_name, user_id, kaoqin_date, zao_time, zao_start, wan_time, 
+    wan_start, riqi_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.it.demo.model.KaoQinDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kao_qin_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from kao_qin_details
+    where kao_qin_details_id = #{kaoQinDetailsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from kao_qin_details
+    where kao_qin_details_id = #{kaoQinDetailsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.demo.model.KaoQinDetailsExample" >
+    delete from kao_qin_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.demo.model.KaoQinDetails" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kao_qin_details (kao_qin_details_id, user_name, kaoqin_date, 
+      zao_time, zao_start, wan_time, 
+      wan_start, riqi_date)
+    values (#{kaoQinDetailsId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{kaoqinDate,jdbcType=VARCHAR}, 
+      #{zaoTime,jdbcType=VARCHAR}, #{zaoStart,jdbcType=VARCHAR}, #{wanTime,jdbcType=VARCHAR}, 
+      #{wanStart,jdbcType=VARCHAR}, #{riqiDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.demo.model.KaoQinDetails" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kao_qin_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kaoQinDetailsId != null" >
+        kao_qin_details_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="kaoqinDate != null" >
+        kaoqin_date,
+      </if>
+      <if test="zaoTime != null" >
+        zao_time,
+      </if>
+      <if test="zaoStart != null" >
+        zao_start,
+      </if>
+      <if test="wanTime != null" >
+        wan_time,
+      </if>
+      <if test="wanStart != null" >
+        wan_start,
+      </if>
+      <if test="riqiDate != null" >
+        riqi_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kaoQinDetailsId != null" >
+        #{kaoQinDetailsId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="kaoqinDate != null" >
+        #{kaoqinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="zaoTime != null" >
+        #{zaoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="zaoStart != null" >
+        #{zaoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="wanTime != null" >
+        #{wanTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wanStart != null" >
+        #{wanStart,jdbcType=VARCHAR},
+      </if>
+      <if test="riqiDate != null" >
+        #{riqiDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.demo.model.KaoQinDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from kao_qin_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update kao_qin_details
+    <set >
+      <if test="record.kaoQinDetailsId != null" >
+        kao_qin_details_id = #{record.kaoQinDetailsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.kaoqinDate != null" >
+        kaoqin_date = #{record.kaoqinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zaoTime != null" >
+        zao_time = #{record.zaoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zaoStart != null" >
+        zao_start = #{record.zaoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wanTime != null" >
+        wan_time = #{record.wanTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wanStart != null" >
+        wan_start = #{record.wanStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riqiDate != null" >
+        riqi_date = #{record.riqiDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update kao_qin_details
+    set kao_qin_details_id = #{record.kaoQinDetailsId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      kaoqin_date = #{record.kaoqinDate,jdbcType=VARCHAR},
+      zao_time = #{record.zaoTime,jdbcType=VARCHAR},
+      zao_start = #{record.zaoStart,jdbcType=VARCHAR},
+      wan_time = #{record.wanTime,jdbcType=VARCHAR},
+      wan_start = #{record.wanStart,jdbcType=VARCHAR},
+      riqi_date = #{record.riqiDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.demo.model.KaoQinDetails" >
+    update kao_qin_details
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="kaoqinDate != null" >
+        kaoqin_date = #{kaoqinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="zaoTime != null" >
+        zao_time = #{zaoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="zaoStart != null" >
+        zao_start = #{zaoStart,jdbcType=VARCHAR},
+      </if>
+      <if test="wanTime != null" >
+        wan_time = #{wanTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wanStart != null" >
+        wan_start = #{wanStart,jdbcType=VARCHAR},
+      </if>
+      <if test="riqiDate != null" >
+        riqi_date = #{riqiDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where kao_qin_details_id = #{kaoQinDetailsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.demo.model.KaoQinDetails" >
+    update kao_qin_details
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      kaoqin_date = #{kaoqinDate,jdbcType=VARCHAR},
+      zao_time = #{zaoTime,jdbcType=VARCHAR},
+      zao_start = #{zaoStart,jdbcType=VARCHAR},
+      wan_time = #{wanTime,jdbcType=VARCHAR},
+      wan_start = #{wanStart,jdbcType=VARCHAR},
+      riqi_date = #{riqiDate,jdbcType=TIMESTAMP}
+    where kao_qin_details_id = #{kaoQinDetailsId,jdbcType=INTEGER}
+  </update>
+</mapper>

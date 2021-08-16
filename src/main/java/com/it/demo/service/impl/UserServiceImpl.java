@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         // 名字模糊查询
         if(!"".equals(user.getUserName())){
 
-            userCriteria.andUserNameLike(user.getUserName());
+            userCriteria.andUserNameLike("%" + user.getUserName() + "%");
         }
 
         // 性别精确查询
@@ -98,6 +98,13 @@ public class UserServiceImpl implements UserService {
 
             BigDecimal bigDecimal = new BigDecimal(user.getEntryBeforeYearsAll02());
             userCriteria.andCurrentYearsLessThan(bigDecimal);
+        }
+
+        if(!"".equals(user.getPaixu()) && !"all".equals(user.getPaixu())){
+
+            String[] byzhi = user.getPaixu().split("-");
+
+            userExample.setOrderByClause(byzhi[0] + " " + byzhi[1]);
         }
 
         List<User> userLise = userMapper.selectByExample(userExample);

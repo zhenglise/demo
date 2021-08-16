@@ -114,6 +114,56 @@
 			selectList();
 		}
 
+		function selectDetailseList()
+		{
+			var usernameDetails = $("#usernameDetails").val();
+			var kaoQinDetailsMonth = $("#kaoQinDetails").val();
+
+			$.ajax
+			({
+				url: "/selectUserKaoQinDetails",
+				dataType: "json",
+				type: "post",
+				data: {
+					usernameDetails: usernameDetails,
+					kaoQinDetailsMonth: kaoQinDetailsMonth,
+				},
+				success:function(data){
+
+					$("#trIdDetails").empty();
+
+					if(data.length > 0){
+
+						let index;
+
+						for(index in data) {
+
+							var trdata = "<tr><td style=\"text-align: center;\">" + index + "</td>" +
+
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].userName + "</td>" +
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].kaoqinDate + "</td>" +
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoTime + "</td>" +
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoStart + "</td>" +
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].wanTime + "</td>" +
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].wanStart + "</td>" +
+								"</tr>";
+
+							$("#trIdDetails").append(trdata);
+
+							console.log(trdata);  //在console中查看数据
+						}
+					}
+
+					console.log(data);  //在console中查看数据
+				},
+				error:function(){
+
+					alert('failed!');
+				},
+			});
+
+		}
+
 		// 异步查询员工列表
 		function selectList()
 		{
@@ -301,11 +351,14 @@
 				<div class="row-fluid sortable">
 					<div class="box span12">
 						<div class="box-header well" data-original-title>
-							<h2><i class="icon-user"></i> 员工档案</h2>
+							<h2><i class="icon-user"></i> 员工考勤统计</h2>
 							<div class="box-icon">
+								<#--<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>-->
 								<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
 							</div>
 						</div>
+
 
 						<div class="box-content">
 
@@ -314,7 +367,7 @@
 								<div class="dataTables_filter">
 									<label>
 										姓名: <input type="text" name="username" id="username">
-										&nbsp;&nbsp;入职时间: <input type="text" class="input-xlarge datepicker" id="entryTime01" value=""> - <input type="text" class="input-xlarge datepicker" id="entryTime02" value="">
+										&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="entryTime01" value=""> - <input type="text" class="input-xlarge datepicker" id="entryTime02" value="">
 										&nbsp;&nbsp;入职前年限: <input type="text" id="entryBeforeYears01"> - <input type="text" id="entryBeforeYears02">
 										&nbsp;&nbsp;总年限: <input type="text" id="entryBeforeYearsAll01"> - <input type="text" id="entryBeforeYearsAll02">
 										<input type="hidden" id="paixu" value="all">
@@ -374,28 +427,7 @@
 							  </thead>
 							  <tbody id="showListTr">
 
-								<#--<tr>
-									<td>David R</td>
-									<td class="center">2012/01/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>
-									<td class="center">
-										<a class="btn btn-success" href="#">
-											<i class="icon-zoom-in icon-white"></i>
-											View
-										</a>
-										<a class="btn btn-info" href="#">
-											<i class="icon-edit icon-white"></i>
-											Edit
-										</a>
-										<a class="btn btn-danger" href="#">
-											<i class="icon-trash icon-white"></i>
-											Delete
-										</a>
-									</td>
-								</tr>-->
+							  <!-- js填充内容 -->
 
 							  </tbody>
 						  </table>
@@ -403,9 +435,61 @@
 					</div><!--/span-->
 
 				</div><!--/row-->
+
+				<div class="row-fluid sortable">
+					<div class="box span12">
+						<div class="box-header well" data-original-title>
+							<h2>员工考勤记录</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+
+							<div class="dataTables_filter">
+								<label>
+									姓名: <input type="text" id="usernameDetails">
+									&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="kaoQinDetails" value="">
+								</label>
+							</div>
+
+							<a class="btn btn-success" onclick='selectDetailseList()'>
+								<i class="icon-zoom-in icon-white"></i>
+								查询
+							</a>
+							<a class="btn btn-info" onclick='selectList()'>
+								<i class="icon-edit icon-white"></i>
+								生成统计数据
+							</a>
+
+							<table class="table table-bordered table-striped table-condensed">
+								<thead>
+								<tr>
+									<th style="text-align: center;">序号</th>
+									<th style="text-align: center;">员工名称</th>
+									<th style="text-align: center;">考勤日期</th>
+									<th style="text-align: center;">早打卡时间</th>
+									<th style="text-align: center;">早打卡状态</th>
+									<th style="text-align: center;">晚打卡时间</th>
+									<th style="text-align: center;">晚打卡状态</th>
+								</tr>
+								</thead>
+								<tbody id="trIdDetails">
+
+								</tbody>
+							</table>
+						</div>
+					</div><!--/span-->
+				</div><!--/row-->
+
+
 			<!-- content ends -->
 			</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
+
+
 				
 		<hr>
 

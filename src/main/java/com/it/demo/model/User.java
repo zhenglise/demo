@@ -58,6 +58,8 @@ public class User implements Serializable {
     private String entryBeforeYearsAll01;
     private String entryBeforeYearsAll02;
 
+    private String paixu;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserId() {
@@ -290,5 +292,13 @@ public class User implements Serializable {
 
     public void setEntryBeforeYearsAll02(String entryBeforeYearsAll02) {
         this.entryBeforeYearsAll02 = entryBeforeYearsAll02;
+    }
+
+    public String getPaixu() {
+        return paixu;
+    }
+
+    public void setPaixu(String paixu) {
+        this.paixu = paixu;
     }
 }

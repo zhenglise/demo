@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.it.demo.dao.JiXiaoMapper" >
+  <resultMap id="BaseResultMap" type="com.it.demo.model.JiXiao" >
+    <id column="ji_xiao_id" property="jiXiaoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="initial_level" property="initialLevel" jdbcType="VARCHAR" />
+    <result column="initial_money" property="initialMoney" jdbcType="INTEGER" />
+    <result column="final_level" property="finalLevel" jdbcType="VARCHAR" />
+    <result column="final_money" property="finalMoney" jdbcType="INTEGER" />
+    <result column="year_month" property="yearMonth" jdbcType="VARCHAR" />
+    <result column="work_remarks" property="workRemarks" jdbcType="VARCHAR" />
+    <result column="superior_remarks" property="superiorRemarks" jdbcType="VARCHAR" />
+    <result column="executive_remarks" property="executiveRemarks" jdbcType="VARCHAR" />
+    <result column="other_remarks" property="otherRemarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ji_xiao_id, user_id, user_name, initial_level, initial_money, final_level, final_money, 
+    year_month, work_remarks, superior_remarks, executive_remarks, other_remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.it.demo.model.JiXiaoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ji_xiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ji_xiao
+    where ji_xiao_id = #{jiXiaoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ji_xiao
+    where ji_xiao_id = #{jiXiaoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.demo.model.JiXiaoExample" >
+    delete from ji_xiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.demo.model.JiXiao" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ji_xiao (ji_xiao_id, user_name, initial_level, 
+      initial_money, final_level, final_money, 
+      year_month, work_remarks, superior_remarks, 
+      executive_remarks, other_remarks)
+    values (#{jiXiaoId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{initialLevel,jdbcType=VARCHAR}, 
+      #{initialMoney,jdbcType=INTEGER}, #{finalLevel,jdbcType=VARCHAR}, #{finalMoney,jdbcType=INTEGER}, 
+      #{yearMonth,jdbcType=VARCHAR}, #{workRemarks,jdbcType=VARCHAR}, #{superiorRemarks,jdbcType=VARCHAR}, 
+      #{executiveRemarks,jdbcType=VARCHAR}, #{otherRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.demo.model.JiXiao" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ji_xiao
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jiXiaoId != null" >
+        ji_xiao_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="initialLevel != null" >
+        initial_level,
+      </if>
+      <if test="initialMoney != null" >
+        initial_money,
+      </if>
+      <if test="finalLevel != null" >
+        final_level,
+      </if>
+      <if test="finalMoney != null" >
+        final_money,
+      </if>
+      <if test="yearMonth != null" >
+        year_month,
+      </if>
+      <if test="workRemarks != null" >
+        work_remarks,
+      </if>
+      <if test="superiorRemarks != null" >
+        superior_remarks,
+      </if>
+      <if test="executiveRemarks != null" >
+        executive_remarks,
+      </if>
+      <if test="otherRemarks != null" >
+        other_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jiXiaoId != null" >
+        #{jiXiaoId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="initialLevel != null" >
+        #{initialLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="initialMoney != null" >
+        #{initialMoney,jdbcType=INTEGER},
+      </if>
+      <if test="finalLevel != null" >
+        #{finalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="finalMoney != null" >
+        #{finalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="yearMonth != null" >
+        #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="workRemarks != null" >
+        #{workRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorRemarks != null" >
+        #{superiorRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveRemarks != null" >
+        #{executiveRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemarks != null" >
+        #{otherRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.demo.model.JiXiaoExample" resultType="java.lang.Integer" >
+    select count(*) from ji_xiao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ji_xiao
+    <set >
+      <if test="record.jiXiaoId != null" >
+        ji_xiao_id = #{record.jiXiaoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initialLevel != null" >
+        initial_level = #{record.initialLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initialMoney != null" >
+        initial_money = #{record.initialMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.finalLevel != null" >
+        final_level = #{record.finalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalMoney != null" >
+        final_money = #{record.finalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.yearMonth != null" >
+        year_month = #{record.yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workRemarks != null" >
+        work_remarks = #{record.workRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superiorRemarks != null" >
+        superior_remarks = #{record.superiorRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executiveRemarks != null" >
+        executive_remarks = #{record.executiveRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherRemarks != null" >
+        other_remarks = #{record.otherRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ji_xiao
+    set ji_xiao_id = #{record.jiXiaoId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      initial_level = #{record.initialLevel,jdbcType=VARCHAR},
+      initial_money = #{record.initialMoney,jdbcType=INTEGER},
+      final_level = #{record.finalLevel,jdbcType=VARCHAR},
+      final_money = #{record.finalMoney,jdbcType=INTEGER},
+      year_month = #{record.yearMonth,jdbcType=VARCHAR},
+      work_remarks = #{record.workRemarks,jdbcType=VARCHAR},
+      superior_remarks = #{record.superiorRemarks,jdbcType=VARCHAR},
+      executive_remarks = #{record.executiveRemarks,jdbcType=VARCHAR},
+      other_remarks = #{record.otherRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.demo.model.JiXiao" >
+    update ji_xiao
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="initialLevel != null" >
+        initial_level = #{initialLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="initialMoney != null" >
+        initial_money = #{initialMoney,jdbcType=INTEGER},
+      </if>
+      <if test="finalLevel != null" >
+        final_level = #{finalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="finalMoney != null" >
+        final_money = #{finalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="yearMonth != null" >
+        year_month = #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="workRemarks != null" >
+        work_remarks = #{workRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorRemarks != null" >
+        superior_remarks = #{superiorRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="executiveRemarks != null" >
+        executive_remarks = #{executiveRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemarks != null" >
+        other_remarks = #{otherRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ji_xiao_id = #{jiXiaoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.demo.model.JiXiao" >
+    update ji_xiao
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      initial_level = #{initialLevel,jdbcType=VARCHAR},
+      initial_money = #{initialMoney,jdbcType=INTEGER},
+      final_level = #{finalLevel,jdbcType=VARCHAR},
+      final_money = #{finalMoney,jdbcType=INTEGER},
+      year_month = #{yearMonth,jdbcType=VARCHAR},
+      work_remarks = #{workRemarks,jdbcType=VARCHAR},
+      superior_remarks = #{superiorRemarks,jdbcType=VARCHAR},
+      executive_remarks = #{executiveRemarks,jdbcType=VARCHAR},
+      other_remarks = #{otherRemarks,jdbcType=VARCHAR}
+    where ji_xiao_id = #{jiXiaoId,jdbcType=INTEGER}
+  </update>
+</mapper>

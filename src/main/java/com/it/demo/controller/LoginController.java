@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -29,7 +28,7 @@ public class LoginController {
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("message", "密码或账号为空或错误");
-        mav.setViewName("login");
+        mav.setViewName("index");
 
         if("".equals(username) || "".equals(password)){
 
@@ -46,7 +45,7 @@ public class LoginController {
             // 登陆成功，调整个人详情页面
             mav.addObject("userCode", username);
             mav.addObject("message", "验证成功，跳转页面 helloWorld");
-            mav.setViewName("typography");
+            mav.setViewName("table");
 
             // 登陆成功，保存登陆用户名 作为登陆凭证
             HttpSession session = request.getSession();
