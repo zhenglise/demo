@@ -12,4 +12,8 @@ public interface KaoQinService {
 
     // 员工考勤记录
     public List<KaoQinDetails> selectUserListByAll(KaoQinDetails kaoQinDetails);
+
+    // 员工考勤记录
+    public String insertKaoQinByTime(KaoQinDetails kaoQinDetails);
+
 }

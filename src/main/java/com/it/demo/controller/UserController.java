@@ -37,6 +37,12 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 目录退出到登陆页面
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/showlogin" ,method = RequestMethod.POST)
     public ModelAndView showlogin(HttpServletRequest request){
 
@@ -53,6 +59,12 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 目录跳转显示calendar
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/showCalendar" ,method = RequestMethod.POST)
     public ModelAndView showCalendar(HttpServletRequest request){
 
@@ -81,6 +93,14 @@ public class UserController {
     }
 
 
+    /**
+     * 目录跳转显示员工信息列表
+     *
+     * @param username
+     * @param password
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/selectUserTable" ,method = RequestMethod.POST)
     public ModelAndView selectUserTable(@RequestParam("username") String username ,
                                         @RequestParam("sex")String password ,HttpServletRequest request){
@@ -108,6 +128,22 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 异步查询员工列表信息
+     *
+     * @param username
+     * @param selectSex
+     * @param selectDepartment
+     * @param entryTime01
+     * @param entryTime02
+     * @param entryBeforeYears01
+     * @param entryBeforeYears02
+     * @param entryBeforeYearsAll01
+     * @param entryBeforeYearsAll02
+     * @param paixu
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "/selectUserAjax" ,method = RequestMethod.POST)
     @ResponseBody
     public void selectUserAjax(@RequestParam("username") String username ,
@@ -180,6 +216,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 目录跳转 typography
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/showTypography" ,method = RequestMethod.POST)
     public ModelAndView showTypography(HttpServletRequest request){
 
@@ -192,6 +233,11 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 目录跳转 icon
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/showIcon" ,method = RequestMethod.POST)
     public ModelAndView showIcon(HttpServletRequest request){
 

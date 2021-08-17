@@ -114,10 +114,80 @@
 			selectList();
 		}
 
+		// 清空考勤统计列表
+		function emptytKaoQinList()
+		{
+			$("#showListTr").empty();
+		}
+
+		// 异步查询考勤统计列表
+		function selectList()
+		{
+			var username = $("#username").val();
+			var selectDepartment = $("#selectDepartment").val();
+			var kaoQinMonth01 = $("#kaoQinMonth01").val();
+			var kaoQinMonth02 = $("#kaoQinMonth02").val();
+			var paixu = $("#paixu").val();
+
+			$.ajax
+			({
+				url: "/selectUserKaoQinByAll",
+				dataType: "json",
+				type: "post",
+				data: {
+					username: username,
+					selectDepartment: selectDepartment,
+					kaoQinMonth01: kaoQinMonth01,
+					kaoQinMonth02: kaoQinMonth02,
+					paixu: paixu,
+				},
+				success:function(data){
+
+					$("#showListTr").empty();
+
+					if(data.length > 0){
+
+						let index;
+
+						for(index in data) {
+
+							var trdata = "<tr><td style=\"text-align: center;\">" + index + "</td>" +
+
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].userName + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].department + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].psot + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].answerAttendanceDate + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].attendanceDate + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].sevenBefore + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].sevenAfter + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].eightAfter + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].nineAfter + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].tenAfter + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].twelveAfter + "</td>" +
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].nineTwelveAfter + "</td>"+
+									"<td class=\"center\" style=\"text-align: center;\">" + data[index].workOvertime + "</td>"+
+									"</tr>";
+
+							$("#showListTr").append(trdata);
+
+							console.log(trdata);  //在console中查看数据
+						}
+					}
+
+					console.log(data);  //在console中查看数据
+				},
+				error:function(){
+
+					alert('failed!');
+				},
+			});
+		}
+
+		// 查询考勤详情列表
 		function selectDetailseList()
 		{
 			var usernameDetails = $("#usernameDetails").val();
-			var kaoQinDetailsMonth = $("#kaoQinDetails").val();
+			var kaoQinDetailsMonth = $("#kaoQinDetailsMonth").val();
 
 			$.ajax
 			({
@@ -142,11 +212,45 @@
 
 								"<td class=\"center\" style=\"text-align: center;\">" + data[index].userName + "</td>" +
 								"<td class=\"center\" style=\"text-align: center;\">" + data[index].kaoqinDate + "</td>" +
-								"<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoTime + "</td>" +
-								"<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoStart + "</td>" +
-								"<td class=\"center\" style=\"text-align: center;\">" + data[index].wanTime + "</td>" +
-								"<td class=\"center\" style=\"text-align: center;\">" + data[index].wanStart + "</td>" +
-								"</tr>";
+								"<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoTime + "</td>";
+
+							// 早上打卡状态根据状态给样式显示
+							if("缺卡" == data[index].zaoStart || "未打卡" == data[index].zaoStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-important\">" + data[index].zaoStart + "</span></td>";
+
+							}else if("正常" == data[index].zaoStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-success\">" + data[index].zaoStart + "</span></td>";
+
+							}else if("" == data[index].zaoStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\">" + data[index].zaoStart + "</td>";
+
+							}else {
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-warning\">" + data[index].zaoStart + "</span></td>";
+							}
+
+							trdata = trdata + "<td class=\"center\" style=\"text-align: center;\">" + data[index].wanTime + "</td>";
+
+							// 晚上打卡状态根据状态给样式显示
+							if("缺卡" == data[index].wanStart || "未打卡" == data[index].wanStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-important\">" + data[index].wanStart + "</span></td></tr>";
+
+							}else if("正常" == data[index].wanStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-success\">" + data[index].wanStart + "</span></td></tr>";
+
+							}else if("" == data[index].wanStart){
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\">" + data[index].wanStart + "</td></tr>";
+
+							}else{
+
+								trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-warning\">" + data[index].wanStart + "</span></td></tr>";
+							}
 
 							$("#trIdDetails").append(trdata);
 
@@ -164,85 +268,25 @@
 
 		}
 
-		// 异步查询员工列表
-		function selectList()
-		{
-			var username = $("#username").val();
-			var selectSex = $("#selectSex").val();
-			var selectDepartment = $("#selectDepartment").val();
-			var entryTime01 = $("#entryTime01").val();
-			var entryTime02 = $("#entryTime02").val();
-			var entryBeforeYears01 = $("#entryBeforeYears01").val();
-			var entryBeforeYears02 = $("#entryBeforeYears02").val();
-			var entryBeforeYearsAll01 = $("#entryBeforeYearsAll01").val();
-			var entryBeforeYearsAll02 = $("#entryBeforeYearsAll02").val();
-			var paixu = $("#paixu").val();
+		// 点击生成考勤数据按钮
+		function insertKaoQinByTime(){
+
+			// 选择生成数据月份，如果不选择就当前时间（系统中获取）
+			var kaoQinDetailsMonth = $("#kaoQinDetailsMonth").val();
 
 			$.ajax
 			({
-				url: "/selectUserAjax",
+				url: "/insertKaoQinByTime",
 				dataType: "json",
 				type: "post",
 				data: {
-					username: username,
-					selectSex: selectSex,
-					selectDepartment: selectDepartment,
-					entryTime01: entryTime01,
-					entryTime02: entryTime02,
-					entryBeforeYears01: entryBeforeYears01,
-					entryBeforeYears02: entryBeforeYears02,
-					entryBeforeYearsAll01: entryBeforeYearsAll01,
-					entryBeforeYearsAll02: entryBeforeYearsAll02,
-					paixu: paixu,
+					kaoQinDetailsMonth: kaoQinDetailsMonth,
 				},
 				success:function(data){
 
-					$("#showListTr").empty();
+					alert(data.message);
 
-					if(data.length > 0){
-
-						let index;
-
-						for(index in data) {
-
-							var trdata = "<tr><td style=\"text-align: center;\">" + index + "</td>" +
-
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].userName + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].department + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].psot + "</td>";
-
-									if("M" == data[index].sex){
-
-										trdata = trdata + "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-important\">" + data[index].sex + "</span></td>"
-
-									}else{
-
-										trdata = trdata +  "<td class=\"center\" style=\"text-align: center;\"><span class=\"label label-success\">" + data[index].sex + "</span></td>"
-									}
-									trdata = trdata + "<td class=\"center\" style=\"text-align: center;\">" + data[index].entryTime01 + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].entryBeforeYears + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].entryGrade + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].entrySalary + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].ontrialSalary + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].currentGrade + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].currentSalary + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;\">" + data[index].whetherExtrapolation + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].graduationSchool + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].graduationTime + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].major + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].education + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].recruitContributionOne + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].recruitContributionTwo + "</td>" +
-									"<td class=\"center\" style=\"text-align: center;display: none\">" + data[index].isJob + "</td>" +
-									"</tr>";
-
-							$("#showListTr").append(trdata);
-
-							console.log(trdata);  //在console中查看数据
-						}
-					}
-
-					console.log(data);  //在console中查看数据
+					console.log(data);  // 在console中查看数据
 				},
 				error:function(){
 
@@ -250,6 +294,7 @@
 				},
 			});
 		}
+
 	</script>
 </head>
 
@@ -353,12 +398,9 @@
 						<div class="box-header well" data-original-title>
 							<h2><i class="icon-user"></i> 员工考勤统计</h2>
 							<div class="box-icon">
-								<#--<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>-->
 								<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
 							</div>
 						</div>
-
 
 						<div class="box-content">
 
@@ -367,16 +409,10 @@
 								<div class="dataTables_filter">
 									<label>
 										姓名: <input type="text" name="username" id="username">
-										&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="entryTime01" value=""> - <input type="text" class="input-xlarge datepicker" id="entryTime02" value="">
-										&nbsp;&nbsp;入职前年限: <input type="text" id="entryBeforeYears01"> - <input type="text" id="entryBeforeYears02">
-										&nbsp;&nbsp;总年限: <input type="text" id="entryBeforeYearsAll01"> - <input type="text" id="entryBeforeYearsAll02">
+										&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="kaoQinMonth01" value=""> - <input type="text" class="input-xlarge datepicker" id="kaoQinMonth02" value="">
 										<input type="hidden" id="paixu" value="all">
-									</label>
-								</div>
 
-								<div class="control-group">
-									<div class="controls">
-										<select id="selectDepartment">
+										<select id="selectDepartment" style="margin-bottom: 0px">
 											<option value="" selected="selected">全部部门</option>
 											<option value="电商平台">电商平台</option>
 											<option value="采购平台">采购平台</option>
@@ -385,18 +421,17 @@
 											<option value="数据平台">数据平台</option>
 										</select>
 
-										<select id="selectSex" name="sex">
-											<option value="" selected="selected">性别</option>
-											<option value="G">男</option>
-											<option value="M">女</option>
-										</select>
-									</div>
-								</div>
+										<a class="btn btn-success" onclick='selectList()'>
+											<i class="icon-zoom-in icon-white"></i>
+											查询
+										</a>
+										<a class="btn btn-danger" onclick='emptytKaoQinList()'>
+											<i class="icon-trash icon-white"></i>
+											清空
+										</a>
+									</label>
 
-								<a class="btn btn-success" onclick='selectList()'>
-									<i class="icon-zoom-in icon-white"></i>
-									查询
-								</a>
+								</div>
 
 							</form>
 
@@ -405,24 +440,18 @@
 								  <tr id="trId">
 									  <th style="width: 20px;text-align: center;">序号</th>
 									  <th style="width: 40px;text-align: center;" id="userName">员工姓名</th>
-									  <th style="width: 40px;text-align: center;" >部门 <i class="icon-resize-vertical" id="department" onclick="selectListByTh('department')" ></i></th>
-									  <th style="width: 40px;text-align: center;" >职位 <i class="icon-resize-vertical" id="psot" onclick="selectListByTh('psot')" ></i></th>
-									  <th style="width: 25px;text-align: center;" >性别 <i class="icon-resize-vertical" id="sex" onclick="selectListByTh('sex')" ></i></th>
-									  <th style="width: 40px;text-align: center;" id="entryTime">入职时间 <i class="icon-resize-vertical" id="entry_time" onclick="selectListByTh('entry_time')" ></i></th>
-									  <th style="width: 45px;text-align: center;" id="entryBeforeYears">入职前年限 <i class="icon-resize-vertical" id="entry_before_years" onclick="selectListByTh('entry_before_years')"></i></th>
-									  <th style="width: 40px;text-align: center;" id="entryGrade">入职评级 <i class="icon-resize-vertical" id="entry_grade" onclick="selectListByTh('entry_grade')"></i></th>
-									  <th style="width: 40px;text-align: center;" id="entrySalary">入职薪资 <i class="icon-resize-vertical" id="entry_salary" onclick="selectListByTh('entry_salary')"></i></th>
-									  <th style="width: 40px;text-align: center;" id="ontrialSalary">试用薪资</th>
-									  <th style="width: 40px;text-align: center;" id="currentGrade">当前评级 <i class="icon-resize-vertical" id="current_grade" onclick="selectListByTh('current_grade')"></i></th>
-									  <th style="width: 40px;text-align: center;" id="currentSalary">当前薪资 <i class="icon-resize-vertical" id="current_salary" onclick="selectListByTh('current_salary')"></i></th>
-									  <th style="width: 40px;text-align: center;" id="whetherExtrapolation">是否内推</th>
-									  <th style="width: 50px;text-align: center;display: none" id="graduationSchool">毕业学校</th>
-									  <th style="width: 40px;text-align: center;display: none" id="graduationTime">毕业时间</th>
-									  <th style="width: 40px;text-align: center;display: none" id="major">专业</th>
-									  <th style="width: 40px;text-align: center;display: none" id="education">学历</th>
-									  <th style="width: 40px;text-align: center;display: none" id="recruitContributionOne">招聘人1</th>
-									  <th style="width: 40px;text-align: center;display: none" id="recruitContributionTwo">招聘人1</th>
-									  <th style="width: 40px;text-align: center;display: none" id="isJob">是否在职</th>
+									  <th style="width: 40px;text-align: center;" >部门</th>
+									  <th style="width: 40px;text-align: center;" >职位</th>
+									  <th style="width: 45px;text-align: center;" >应出勤天数</th>
+									  <th style="width: 40px;text-align: center;" >出勤天数</th>
+									  <th style="width: 40px;text-align: center;">7点前<i class="icon-resize-vertical" id="seven_before" onclick="selectListByTh('seven_before')"></i></th>
+									  <th style="width: 40px;text-align: center;" >7点后<i class="icon-resize-vertical" id="seven_after" onclick="selectListByTh('seven_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >8点后<i class="icon-resize-vertical" id="eight_after" onclick="selectListByTh('eight_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >9点后<i class="icon-resize-vertical" id="nine_after" onclick="selectListByTh('nine_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >10点后<i class="icon-resize-vertical" id="ten_after" onclick="selectListByTh('ten_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >12点后<i class="icon-resize-vertical" id="twelve_after" onclick="selectListByTh('twelve_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >9-12点后<i class="icon-resize-vertical" id="nine_twelve_after" onclick="selectListByTh('nine_twelve_after')"></i></th>
+									  <th style="width: 40px;text-align: center;" >备注</th>
 								  </tr>
 							  </thead>
 							  <tbody id="showListTr">
@@ -451,18 +480,18 @@
 							<div class="dataTables_filter">
 								<label>
 									姓名: <input type="text" id="usernameDetails">
-									&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="kaoQinDetails" value="">
+									&nbsp;&nbsp;考勤年月份: <input type="text" class="input-xlarge datepicker" id="kaoQinDetailsMonth" value="">
+
+									<a class="btn btn-success" onclick='selectDetailseList()'>
+										<i class="icon-zoom-in icon-white"></i>
+										查询
+									</a>
+									<a class="btn btn-info" onclick='insertKaoQinByTime()'>
+										<i class="icon-edit icon-white"></i>
+										生成统计数据
+									</a>
 								</label>
 							</div>
-
-							<a class="btn btn-success" onclick='selectDetailseList()'>
-								<i class="icon-zoom-in icon-white"></i>
-								查询
-							</a>
-							<a class="btn btn-info" onclick='selectList()'>
-								<i class="icon-edit icon-white"></i>
-								生成统计数据
-							</a>
 
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>

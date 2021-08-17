@@ -33,4 +33,7 @@ public interface KaoQinMapper {
     int updateByPrimaryKeySelective(KaoQin record);
 
     int updateByPrimaryKey(KaoQin record);
+
+    // 特殊自己写的方法，更新用户部门 职位
+    int updateByPrimaryTime(KaoQin record);
 }

@@ -38,6 +38,11 @@ public class KaoQin implements Serializable {
 
     private Date kaoQinMonth;
 
+    private Date kaoQinMonth1;
+    private String kaoQinMonth01;
+    private String kaoQinMonth02;
+    private String paixu;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getKaoQinId() {
@@ -174,5 +179,37 @@ public class KaoQin implements Serializable {
 
     public void setKaoQinMonth(Date kaoQinMonth) {
         this.kaoQinMonth = kaoQinMonth;
+    }
+
+    public String getKaoQinMonth01() {
+        return kaoQinMonth01;
+    }
+
+    public void setKaoQinMonth01(String kaoQinMonth01) {
+        this.kaoQinMonth01 = kaoQinMonth01;
+    }
+
+    public String getKaoQinMonth02() {
+        return kaoQinMonth02;
+    }
+
+    public void setKaoQinMonth02(String kaoQinMonth02) {
+        this.kaoQinMonth02 = kaoQinMonth02;
+    }
+
+    public String getPaixu() {
+        return paixu;
+    }
+
+    public void setPaixu(String paixu) {
+        this.paixu = paixu;
+    }
+
+    public Date getKaoQinMonth1() {
+        return kaoQinMonth1;
+    }
+
+    public void setKaoQinMonth1(Date kaoQinMonth1) {
+        this.kaoQinMonth1 = kaoQinMonth1;
     }
 }

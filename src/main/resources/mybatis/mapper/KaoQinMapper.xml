@@ -398,4 +398,16 @@
       kao_qin_month = #{kaoQinMonth,jdbcType=TIMESTAMP}
     where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
   </update>
+
+  <!-- update userId department psot -->
+  <update id="updateByPrimaryTime" parameterType="com.it.demo.model.KaoQin" >
+    UPDATE kao_qin kq,user_data ud
+    SET kq.user_id = ud.user_id,
+    kq.department = ud.department,
+    kq.psot = ud.psot
+    WHERE
+    ud.user_name = kq.user_name
+    AND kq.kao_qin_month > #{kaoQinMonth,jdbcType=TIMESTAMP}
+    AND kq.kao_qin_month <![CDATA[ < ]]> #{kaoQinMonth1,jdbcType=TIMESTAMP}
+  </update>
 </mapper>

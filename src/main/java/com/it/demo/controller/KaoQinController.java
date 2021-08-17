@@ -1,5 +1,6 @@
 package com.it.demo.controller;
 
+import com.it.demo.model.KaoQin;
 import com.it.demo.model.KaoQinDetails;
 import com.it.demo.model.User;
 import com.it.demo.service.KaoQinService;
@@ -25,6 +26,12 @@ public class KaoQinController {
     @Autowired
     KaoQinService kaoQinService;
 
+    /**
+     * 目录点击跳转考勤查看列表
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/showKaoQin" ,method = RequestMethod.POST)
     public ModelAndView showKaoQin(HttpServletRequest request){
 
@@ -40,6 +47,68 @@ public class KaoQinController {
         return mav;
     }
 
+    /**
+     * 查询考勤统计数据
+     *
+     * @param username
+     * @param selectDepartment
+     * @param kaoQinMonth01
+     * @param kaoQinMonth02
+     * @param paixu
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/selectUserKaoQinByAll" ,method = RequestMethod.POST)
+    @ResponseBody
+    public void selectUserKaoQinByAll(@RequestParam("username") String username ,
+                                        @RequestParam("selectDepartment")String selectDepartment ,
+                                        @RequestParam("kaoQinMonth01")String kaoQinMonth01 ,
+                                        @RequestParam("kaoQinMonth02")String kaoQinMonth02 ,
+                                        @RequestParam("paixu")String paixu ,
+                                        HttpServletRequest request, HttpServletResponse response) {
+
+        ModelAndView mav = new ModelAndView();
+
+        // 还没登陆退到登陆
+        if("Success".equals(UserController.loginFilter(mav,request))){
+
+            // 封装查询条件
+            KaoQin kaoQin = new KaoQin();
+            kaoQin.setUserName(null == username ? "" : username.trim());
+            kaoQin.setDepartment(null == selectDepartment ? "" : selectDepartment.trim());
+            kaoQin.setKaoQinMonth01(null == kaoQinMonth01 ? "" : kaoQinMonth01.trim());
+            kaoQin.setKaoQinMonth02(null == kaoQinMonth02 ? "" : kaoQinMonth02.trim());
+            kaoQin.setPaixu(null == paixu ? "" : paixu.trim());
+
+            List<KaoQin> userList = kaoQinService.selectUserListByAll(kaoQin);
+
+            // 转换日期字符串
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            JSONArray array = JSONArray.fromObject(userList);
+
+            try {
+
+                // 异步查询形式，通过输出返回到页面
+                response.setCharacterEncoding("utf-8");//响应字符集的编码格式
+                response.getWriter().print(array);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // System.out.print("输出：" + array);
+        }
+    }
+
+    /**
+     * 查询考勤详情数据
+     *
+     * @param usernameDetails
+     * @param kaoQinDetailsMonth
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "/selectUserKaoQinDetails" ,method = RequestMethod.POST)
     @ResponseBody
     public void selectUserKaoQinDetails(@RequestParam("usernameDetails") String usernameDetails ,
@@ -79,9 +148,44 @@ public class KaoQinController {
                 e.printStackTrace();
             }
 
-            System.out.print("输出：" + array);
-
+            // System.out.print("输出：" + array);
         }
+    }
 
+    /**
+     * 查询考勤详情数据
+     *
+     * @param kaoQinDetailsMonth
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/insertKaoQinByTime" ,method = RequestMethod.POST)
+    @ResponseBody
+    public void insertKaoQinByTime( @RequestParam("kaoQinDetailsMonth")String kaoQinDetailsMonth ,
+                                        HttpServletRequest request, HttpServletResponse response) {
+
+        ModelAndView mav = new ModelAndView();
+
+        // 还没登陆退到登陆
+        if("Success".equals(UserController.loginFilter(mav,request))){
+
+            // 封装查询条件
+            KaoQinDetails kaoQinDetails = new KaoQinDetails();
+            kaoQinDetails.setRiqiDateString(null == kaoQinDetailsMonth ? "" : kaoQinDetailsMonth.trim());
+
+            String message = kaoQinService.insertKaoQinByTime(kaoQinDetails);
+
+            try {
+
+                // 异步查询形式，通过输出返回到页面
+                response.setCharacterEncoding("utf-8");//响应字符集的编码格式
+                response.getWriter().print("{\"message\":\"成功生成！！！\"}");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.print("输出：" + message);
+        }
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 13/08/2021 18:48:37
+ Date: 17/08/2021 18:17:25
 */
 
 SET NAMES utf8mb4;
@@ -28,12 +28,6 @@ CREATE TABLE `erp_record`  (
   `about_meun` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '相关目录权限',
   PRIMARY KEY (`erp_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of erp_record
--- ----------------------------
-INSERT INTO `erp_record` VALUES (1, 'admin', 'aa', 'N');
-INSERT INTO `erp_record` VALUES (2, 'yanfa', 'yanfa', 'N');
 
 -- ----------------------------
 -- Table structure for ji_xiao
@@ -56,15 +50,11 @@ CREATE TABLE `ji_xiao`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of ji_xiao
--- ----------------------------
-
--- ----------------------------
 -- Table structure for kao_qin
 -- ----------------------------
 DROP TABLE IF EXISTS `kao_qin`;
 CREATE TABLE `kao_qin`  (
-  `kao_qin_id` int(11) NOT NULL,
+  `kao_qin_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NULL DEFAULT NULL COMMENT '员工ID',
   `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '员工姓名',
   `department` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门',
@@ -80,12 +70,26 @@ CREATE TABLE `kao_qin`  (
   `nine_twelve_after` int(10) NULL DEFAULT NULL COMMENT '9-12点后次数',
   `work_overtime` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '加班时间备注',
   `is_work` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否有加班',
+  `kao_qin_month` datetime NULL DEFAULT NULL COMMENT '考勤月份',
   PRIMARY KEY (`kao_qin_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 638 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of kao_qin
+-- Table structure for kao_qin_details
 -- ----------------------------
+DROP TABLE IF EXISTS `kao_qin_details`;
+CREATE TABLE `kao_qin_details`  (
+  `kao_qin_details_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '员工名称',
+  `user_id` int(11) NULL DEFAULT NULL,
+  `kaoqin_date` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '考勤日期',
+  `zao_time` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '早上打卡时间',
+  `zao_start` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '早上打卡状态',
+  `wan_time` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '晚上打卡时间',
+  `wan_start` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '晚上打卡状态',
+  `riqi_date` datetime NULL DEFAULT NULL COMMENT '考勤日期',
+  PRIMARY KEY (`kao_qin_details_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 962 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tiao_xin
@@ -110,10 +114,6 @@ CREATE TABLE `tiao_xin`  (
   `survey_time` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调薪调研时间',
   PRIMARY KEY (`tiao_xin_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of tiao_xin
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_data
@@ -144,12 +144,6 @@ CREATE TABLE `user_data`  (
   `recruit_contribution_two` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '招聘贡献人2',
   `is_job` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否在职',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of user_data
--- ----------------------------
-INSERT INTO `user_data` VALUES (1, 'sese', '男', '2021-08-13 00:01:23', '13', 213213.00, '12', 414.00, '研发', '经理', '00:00:02', 3.00, '学校', '软件', NULL, '2021-08-13 00:00:21', NULL, '21', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user_data` VALUES (2, 'sese', '男', '2021-08-13 12:31:23', '23', 12313.00, NULL, 5123.00, '研发', '工程师', '00:00:01', 4.00, '学校', NULL, NULL, '2021-08-13 00:00:21', NULL, '21', NULL, NULL, NULL, NULL, NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
