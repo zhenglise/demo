@@ -356,6 +356,7 @@
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Main</li>
+						<li><a class="ajax-link" onclick='clickMenu("showErpRecord")'><i class="icon-eye-open"></i><span class="hidden-tablet"> 账号管理</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showTable")'><i class="icon-home"></i><span class="hidden-tablet"> 员工列表</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showJiXiao")'><i class="icon-list-alt"></i><span class="hidden-tablet"> 绩效列表</span></a></li>
 						<li><a class="ajax-link" onclick='clickMenu("showKaoQin")'><i class="icon-align-justify"></i><span class="hidden-tablet"> 考勤列表</span></a></li>

@@ -62,7 +62,7 @@
         </javaClientGenerator>
 
         <!-- 数据表名及实体类名称  -->
-        <table tableName="kao_qin_details" domainObjectName="KaoQinDetails"
+        <table tableName="erp_record1" domainObjectName="ErpRecord1"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
             <generatedKey column="user_id" sqlStatement="mysql" identity="true"/>
