@@ -193,4 +193,6 @@
       about_meun = #{aboutMeun,jdbcType=VARCHAR}
     where erp_id = #{erpId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

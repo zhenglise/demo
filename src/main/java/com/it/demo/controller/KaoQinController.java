@@ -153,7 +153,7 @@ public class KaoQinController {
     }
 
     /**
-     * 查询考勤详情数据
+     * 生成考勤统计数据
      *
      * @param kaoQinDetailsMonth
      * @param request

@@ -128,6 +128,8 @@ public class UserController {
         return mav;
     }
 
+
+
     /**
      * 异步查询员工列表信息
      *
@@ -279,5 +281,54 @@ public class UserController {
 
             return "Failure";
         }
+    }
+
+
+    /**
+     * 显示修改初始页面
+     * @param userId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/showUserUpdate" ,method = RequestMethod.POST)
+    public ModelAndView showUserUpdate(@RequestParam("userId") String userId,HttpServletRequest request, HttpServletResponse response){
+
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("userUpdate");
+
+        User user = userService.selectUserListByAId(Integer.parseInt(userId));
+
+        mav.addObject("user",user);
+
+        return mav;
+    }
+
+    /**
+     * 修改保持员工信息
+     * @param userId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/updateUserById" ,method = RequestMethod.POST)
+    public ModelAndView updateUserById(@RequestParam("userId") String userId,
+                                       @RequestParam("userName") String userName,
+                                       @RequestParam("department") String department,
+                                       HttpServletRequest request, HttpServletResponse response){
+
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("table");
+
+        User user = new User();
+        user.setUserId(Integer.parseInt(userId));
+        user.setUserName(userName);
+        user.setDepartment(department);
+
+        userService.updateUserListByAId(user);
+
+        return mav;
     }
 }

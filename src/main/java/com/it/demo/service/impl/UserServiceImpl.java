@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         UserExample.Criteria userCriteria = userExample.createCriteria();
 
         // 转换日期字符串
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         //Date date = sdf.parse(str);
 
@@ -52,14 +52,15 @@ public class UserServiceImpl implements UserService {
             // 入职时间范围 大于
             if(!"".equals(user.getEntryTime01())){
 
-                Date date = sdf.parse(user.getEntryTime01());
-                userCriteria.andEntryTimeGreaterThanOrEqualTo(date);
+                Date date1 = new Date(user.getEntryTime01());
+
+                userCriteria.andEntryTimeGreaterThanOrEqualTo(date1);
             }
 
             // 入职时间范围 小于
             if(!"".equals(user.getEntryTime02())){
 
-                Date date = sdf.parse(user.getEntryTime02());
+                Date date = new Date(user.getEntryTime01());
                 userCriteria.andEntryTimeLessThanOrEqualTo(date);
             }
 
@@ -110,5 +111,21 @@ public class UserServiceImpl implements UserService {
         List<User> userLise = userMapper.selectByExample(userExample);
 
         return userLise;
+    }
+
+    @Override
+    public User selectUserListByAId(Integer id) {
+
+        User user = userMapper.selectByPrimaryKey(id);
+
+        return user;
+    }
+
+    @Override
+    public Integer updateUserListByAId(User user) {
+
+        Integer i = userMapper.updateByPrimaryKeySelective(user);
+
+        return i;
     }
 }

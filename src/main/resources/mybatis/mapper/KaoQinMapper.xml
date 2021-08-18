@@ -399,6 +399,7 @@
     where kao_qin_id = #{kaoQinId,jdbcType=INTEGER}
   </update>
 
+
   <!-- update userId department psot -->
   <update id="updateByPrimaryTime" parameterType="com.it.demo.model.KaoQin" >
     UPDATE kao_qin kq,user_data ud

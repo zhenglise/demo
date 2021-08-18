@@ -7,4 +7,8 @@ import java.util.List;
 public interface UserService {
 
     public List<User> selectUserListByAll(User user);
+
+    public User selectUserListByAId(Integer id);
+
+    public Integer updateUserListByAId(User user);
 }

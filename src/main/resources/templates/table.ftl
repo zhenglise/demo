@@ -155,7 +155,7 @@
 
 						for(index in data) {
 
-							var trdata = "<tr><td style=\"text-align: center;\">" + index + "</td>" +
+							var trdata = "<tr><td style=\"text-align: center;\">" + index + " <input type=\"checkbox\" name='yy" + index + "' value='" + data[index].userId + "'></td>" +
 
 									"<td class=\"center\" style=\"text-align: center;\">" + data[index].userName + "</td>" +
 									"<td class=\"center\" style=\"text-align: center;\">" + data[index].department + "</td>" +
@@ -199,6 +199,31 @@
 					alert('failed!');
 				},
 			});
+		}
+
+		// 修改员工
+		function selectListOne(){
+
+			var i = 0;
+
+			$(":checkbox").each(function(){
+
+				if($(this).is(':checked')){
+
+					$("#usetId").val($(this).val());
+
+					i = i + 1;
+				}
+			});
+
+			if(i > 1){
+
+				alert("只能选择一条");
+			}
+
+			$("#selectForm").attr("action","/showUserUpdate");
+
+			$("#selectForm").submit();
 		}
 	</script>
 </head>
@@ -319,6 +344,7 @@
 										&nbsp;&nbsp;入职前年限: <input type="text" id="entryBeforeYears01"> - <input type="text" id="entryBeforeYears02">
 										&nbsp;&nbsp;总年限: <input type="text" id="entryBeforeYearsAll01"> - <input type="text" id="entryBeforeYearsAll02">
 										<input type="hidden" id="paixu" value="all">
+										<input type="hidden" id="usetId" name="userId" value="">
 									</label>
 								</div>
 
@@ -344,6 +370,11 @@
 								<a class="btn btn-success" onclick='selectList()'>
 									<i class="icon-zoom-in icon-white"></i>
 									查询
+								</a>
+
+								<a class="btn btn-success" onclick='selectListOne()'>
+									<i class="icon-zoom-in icon-white"></i>
+									修改
 								</a>
 
 							</form>
